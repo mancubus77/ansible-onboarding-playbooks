@@ -1,6 +1,6 @@
 ---
   - hosts: localhost
-    gather_facts: false
+    gather_facts: no
     tasks:
     - name: Add project
       ansible.controller.project:
