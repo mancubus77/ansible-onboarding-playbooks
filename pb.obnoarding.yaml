@@ -16,8 +16,6 @@
         scm_url: https://github.com/mancubus77/tower-example.git
         state: present
 
-    - pause:
-
     - name: Create new user
       ansible.controller.tower_user:
         controller_host: "{{ controller_host }}"
