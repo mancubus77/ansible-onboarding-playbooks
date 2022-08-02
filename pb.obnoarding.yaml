@@ -1,0 +1,73 @@
+---
+  - hosts: localhost
+    vars:
+      connection: local
+    tasks:
+    - name: Add project
+      ansible.controller.project:
+        controller_host: "{{ controller_host }}"
+        controller_oauthtoken: "{{ controller_oauthtoken }}"
+        controller_password: "{{ controller_password }}"
+        name: "Team-A Project"
+        description: "Team A project requested by SNOW"
+        organization: "Default"
+        scm_type: git
+        scm_update_on_launch: True
+        scm_update_cache_timeout: 60
+        scm_url: https://github.com/mancubus77/tower-example.git
+        state: present
+
+    - pause:
+
+    - name: Create new user
+      ansible.controller.tower_user:
+        controller_host: "example-ansible-automation-platform.violet-cluster-new-2761a99850dd8c23002378ac6ce7f9ad-0000.au-syd.containers.appdomain.cloud"
+        controller_oauthtoken: "ovxQ4jqnaJ0lhTngGgea09S9oNvl3G"
+        controller_password: admin
+        username: team-a
+        password: "{{ lookup('ansible.builtin.password') }}"
+        email: team-a@redhat.com
+        first_name: Team
+        last_name: Ai
+        state: present
+
+    - name: Create new team 
+      ansible.controller.team:
+        controller_host: "example-ansible-automation-platform.violet-cluster-new-2761a99850dd8c23002378ac6ce7f9ad-0000.au-syd.containers.appdomain.cloud"
+        controller_oauthtoken: "ovxQ4jqnaJ0lhTngGgea09S9oNvl3G"
+        controller_password: admin
+        name: team-vv
+        description: This is Team A requested by SNOW
+        organization: Default
+        state: present    
+
+    - name: Add user to the team
+      ansible.controller.role:
+        controller_host: "example-ansible-automation-platform.violet-cluster-new-2761a99850dd8c23002378ac6ce7f9ad-0000.au-syd.containers.appdomain.cloud"
+        controller_oauthtoken: "ovxQ4jqnaJ0lhTngGgea09S9oNvl3G"
+        controller_password: admin
+        user: team-a
+        target_team: "team-vv"
+        role: admin
+        state: present
+
+    - name: Bind team to project
+      ansible.controller.role:
+        controller_host: "example-ansible-automation-platform.violet-cluster-new-2761a99850dd8c23002378ac6ce7f9ad-0000.au-syd.containers.appdomain.cloud"
+        controller_oauthtoken: "ovxQ4jqnaJ0lhTngGgea09S9oNvl3G"
+        controller_password: admin
+        project: "Team-A Project"
+        team: "team-vv"
+        role: admin
+        state: present
+
+    - name: Bind team to project
+      ansible.controller.role:
+        controller_host: "example-ansible-automation-platform.violet-cluster-new-2761a99850dd8c23002378ac6ce7f9ad-0000.au-syd.containers.appdomain.cloud"
+        controller_oauthtoken: "ovxQ4jqnaJ0lhTngGgea09S9oNvl3G"
+        controller_password: admin
+        inventory: "production"
+        team: "team-vv"
+        role: admin
+        state: present
+
