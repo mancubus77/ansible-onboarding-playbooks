@@ -20,9 +20,9 @@
 
     - name: Create new user
       ansible.controller.tower_user:
-        controller_host: "example-ansible-automation-platform.violet-cluster-new-2761a99850dd8c23002378ac6ce7f9ad-0000.au-syd.containers.appdomain.cloud"
-        controller_oauthtoken: "ovxQ4jqnaJ0lhTngGgea09S9oNvl3G"
-        controller_password: admin
+        controller_host: "{{ controller_host }}"
+        controller_oauthtoken: "{{ controller_oauthtoken }}"
+        controller_password: "{{ controller_password }}"
         username: team-a
         password: "{{ lookup('ansible.builtin.password') }}"
         email: team-a@redhat.com
@@ -32,9 +32,9 @@
 
     - name: Create new team 
       ansible.controller.team:
-        controller_host: "example-ansible-automation-platform.violet-cluster-new-2761a99850dd8c23002378ac6ce7f9ad-0000.au-syd.containers.appdomain.cloud"
-        controller_oauthtoken: "ovxQ4jqnaJ0lhTngGgea09S9oNvl3G"
-        controller_password: admin
+        controller_host: "{{ controller_host }}"
+        controller_oauthtoken: "{{ controller_oauthtoken }}"
+        controller_password: "{{ controller_password }}"
         name: team-vv
         description: This is Team A requested by SNOW
         organization: Default
@@ -42,9 +42,9 @@
 
     - name: Add user to the team
       ansible.controller.role:
-        controller_host: "example-ansible-automation-platform.violet-cluster-new-2761a99850dd8c23002378ac6ce7f9ad-0000.au-syd.containers.appdomain.cloud"
-        controller_oauthtoken: "ovxQ4jqnaJ0lhTngGgea09S9oNvl3G"
-        controller_password: admin
+        controller_host: "{{ controller_host }}"
+        controller_oauthtoken: "{{ controller_oauthtoken }}"
+        controller_password: "{{ controller_password }}"
         user: team-a
         target_team: "team-vv"
         role: admin
@@ -52,9 +52,9 @@
 
     - name: Bind team to project
       ansible.controller.role:
-        controller_host: "example-ansible-automation-platform.violet-cluster-new-2761a99850dd8c23002378ac6ce7f9ad-0000.au-syd.containers.appdomain.cloud"
-        controller_oauthtoken: "ovxQ4jqnaJ0lhTngGgea09S9oNvl3G"
-        controller_password: admin
+        controller_host: "{{ controller_host }}"
+        controller_oauthtoken: "{{ controller_oauthtoken }}"
+        controller_password: "{{ controller_password }}"
         project: "Team-A Project"
         team: "team-vv"
         role: admin
@@ -62,11 +62,10 @@
 
     - name: Bind team to project
       ansible.controller.role:
-        controller_host: "example-ansible-automation-platform.violet-cluster-new-2761a99850dd8c23002378ac6ce7f9ad-0000.au-syd.containers.appdomain.cloud"
-        controller_oauthtoken: "ovxQ4jqnaJ0lhTngGgea09S9oNvl3G"
-        controller_password: admin
+        controller_host: "{{ controller_host }}"
+        controller_oauthtoken: "{{ controller_oauthtoken }}"
+        controller_password: "{{ controller_password }}"
         inventory: "production"
         team: "team-vv"
         role: admin
         state: present
-
