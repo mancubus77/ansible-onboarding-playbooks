@@ -21,11 +21,11 @@
         controller_host: "{{ controller_host }}"
         controller_oauthtoken: "{{ controller_oauthtoken }}"
         controller_password: "{{ controller_password }}"
-        username: tpears
+        username: tpearce
         password: "{{ lookup('ansible.builtin.password') }}"
         email: tpears@redhat.com
         first_name: Trent
-        last_name: Pears
+        last_name: Pearce
         state: present
 
     - name: Create new team
@@ -43,7 +43,7 @@
         controller_host: "{{ controller_host }}"
         controller_oauthtoken: "{{ controller_oauthtoken }}"
         controller_password: "{{ controller_password }}"
-        user: tpears
+        user: tpearce
         target_team: "redhat-automation"
         role: admin
         state: present
