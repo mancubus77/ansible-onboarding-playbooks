@@ -7,13 +7,13 @@
         controller_host: "{{ controller_host }}"
         controller_oauthtoken: "{{ controller_oauthtoken }}"
         controller_password: "{{ controller_password }}"
-        name: "Team-A Project"
-        description: "Team A project requested by SNOW"
+        name: "{{ project_name }}"
+        description: "{{ project_name }} project requested by SNOW {{ snow_request }}"
         organization: "Default"
         scm_type: git
         scm_update_on_launch: True
         scm_update_cache_timeout: 60
-        scm_url: https://github.com/mancubus77/tower-example.git
+        scm_url: "{{ git_url }}"
         state: present
 
     - name: Create new user
@@ -21,20 +21,20 @@
         controller_host: "{{ controller_host }}"
         controller_oauthtoken: "{{ controller_oauthtoken }}"
         controller_password: "{{ controller_password }}"
-        username: team-a
+        username: skozlov
         password: "{{ lookup('ansible.builtin.password') }}"
-        email: team-a@redhat.com
-        first_name: Team
-        last_name: Ai
+        email: skozlov@redhat.com
+        first_name: Stan
+        last_name: Kozlov
         state: present
 
-    - name: Create new team 
+    - name: Create new team
       ansible.controller.team:
         controller_host: "{{ controller_host }}"
         controller_oauthtoken: "{{ controller_oauthtoken }}"
         controller_password: "{{ controller_password }}"
-        name: team-vv
-        description: This is Team A requested by SNOW
+        name: redhat-automation
+        description: "Red Hat Automation Team. Requested by SNOW {{ snow_request }}"
         organization: Default
         state: present    
 
@@ -43,8 +43,8 @@
         controller_host: "{{ controller_host }}"
         controller_oauthtoken: "{{ controller_oauthtoken }}"
         controller_password: "{{ controller_password }}"
-        user: team-a
-        target_team: "team-vv"
+        user: skozlov
+        target_team: "redhat-automation"
         role: admin
         state: present
 
@@ -53,8 +53,8 @@
         controller_host: "{{ controller_host }}"
         controller_oauthtoken: "{{ controller_oauthtoken }}"
         controller_password: "{{ controller_password }}"
-        project: "Team-A Project"
-        team: "team-vv"
+        project: "{{ project_name }}"
+        team: "redhat-automation"
         role: admin
         state: present
 
@@ -64,6 +64,6 @@
         controller_oauthtoken: "{{ controller_oauthtoken }}"
         controller_password: "{{ controller_password }}"
         inventory: "production"
-        team: "team-vv"
+        team: "redhat-automation"
         role: admin
         state: present
